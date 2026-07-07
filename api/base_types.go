@@ -1,4 +1,4 @@
-package parser
+package api
 
 import (
 	"fmt"
@@ -49,4 +49,12 @@ type PrefixAttribute struct {
 type UnPrefixedAttribute struct {
 	LocalPart string
 	Value     string
+}
+
+type EntityRef struct {
+	Value string
+}
+
+type CharRef struct {
+	Value string
 }

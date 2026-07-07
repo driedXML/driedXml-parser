@@ -1,4 +1,5 @@
-module github.com/driedXML/parser
+module github.com/driedxml/parser
+
 
 go 1.25.6
 

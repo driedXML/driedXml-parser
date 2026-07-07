@@ -1,4 +1,4 @@
-package parser
+package api
 
 type Comment struct {
 	Value string
@@ -17,11 +17,7 @@ type CData struct {
 type DriedXMLDecl struct {
 }
 
-type EntityRef struct {
-	Value string
-}
-
-type CharRef struct {
+type Reference struct {
 	Value string
 }
 
@@ -49,4 +45,13 @@ type EmptyElement struct {
 	NSAttributes         []NSAttribute
 	PrefixAttributes     []PrefixAttribute
 	UnPrefixedAttributes []UnPrefixedAttribute
+}
+
+// Token - any type of DriedXMLDecl Comment CDStart CDEnd CData Reference CharData WhiteSpace StartElement EndElement EmptyElement
+type Token any
+
+type Parser interface {
+	// NextToken returns the next driedXML token in the input stream.
+	// At the end of the input stream, Token returns nil, io.EOF.
+	NextToken() (Token, error)
 }
