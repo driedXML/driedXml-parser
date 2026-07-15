@@ -8,5 +8,5 @@ import (
 )
 
 func NewParser(r io.Reader) api.Parser {
-	return &internal.Parser{}
+	return internal.NewParser(r)
 }

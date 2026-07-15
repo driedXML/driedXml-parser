@@ -1,35 +1,46 @@
 package api
 
+import "context"
+
 type Comment struct {
+	Position
 	Value string
 }
 
 type CDStart struct {
+	Position
 }
 
 type CDEnd struct {
+	Position
 }
 
 type CData struct {
+	Position
 	Value string
 }
 
 type DriedXMLDecl struct {
+	Position
 }
 
 type Reference struct {
+	Position
 	Value string
 }
 
 type CharData struct {
+	Position
 	Value string
 }
 
 type WhiteSpace struct {
+	Position
 	Value string
 }
 
 type StartElement struct {
+	Position
 	ElementName          ElementName
 	NSAttributes         []NSAttribute
 	PrefixAttributes     []PrefixAttribute
@@ -37,10 +48,12 @@ type StartElement struct {
 }
 
 type EndElement struct {
+	Position
 	ElementName ElementName
 }
 
 type EmptyElement struct {
+	Position
 	ElementName          ElementName
 	NSAttributes         []NSAttribute
 	PrefixAttributes     []PrefixAttribute
@@ -51,7 +64,5 @@ type EmptyElement struct {
 type Token any
 
 type Parser interface {
-	// NextToken returns the next driedXML token in the input stream.
-	// At the end of the input stream, Token returns nil, io.EOF.
-	NextToken() (Token, error)
+	Run(ctx context.Context, tokChan chan<- Token, errorChan chan<- error)
 }
