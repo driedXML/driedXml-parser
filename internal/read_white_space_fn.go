@@ -8,6 +8,11 @@ import (
 )
 
 func ReadWhiteSpace(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error) {
+	select {
+	case <-ctx.Done():
+		return
+	default:
+	}
 
 	var stringBld strings.Builder
 	var counter int
@@ -57,7 +62,6 @@ func ReadWhiteSpace(p *Parser, ctx context.Context, tokChan chan<- api.Token, er
 			return
 		}
 	}
-
 }
 
 func isSpace(r byte) bool {
