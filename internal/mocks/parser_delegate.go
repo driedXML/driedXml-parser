@@ -36,6 +36,18 @@ func (m *MockParserDelegate) EXPECT() *MockParserDelegateMockRecorder {
 	return m.recorder
 }
 
+// ReadComment mocks base method.
+func (m *MockParserDelegate) ReadComment(arg0 *internal.Parser, arg1 context.Context, arg2 chan<- api.Token, arg3 chan<- error) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "ReadComment", arg0, arg1, arg2, arg3)
+}
+
+// ReadComment indicates an expected call of ReadComment.
+func (mr *MockParserDelegateMockRecorder) ReadComment(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadComment", reflect.TypeOf((*MockParserDelegate)(nil).ReadComment), arg0, arg1, arg2, arg3)
+}
+
 // ReadDocument mocks base method.
 func (m *MockParserDelegate) ReadDocument(arg0 *internal.Parser, arg1 context.Context, arg2 chan<- api.Token, arg3 chan<- error) {
 	m.ctrl.T.Helper()
@@ -58,4 +70,16 @@ func (m *MockParserDelegate) ReadProlog(arg0 *internal.Parser, arg1 context.Cont
 func (mr *MockParserDelegateMockRecorder) ReadProlog(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadProlog", reflect.TypeOf((*MockParserDelegate)(nil).ReadProlog), arg0, arg1, arg2, arg3)
+}
+
+// ReadWhiteSpace mocks base method.
+func (m *MockParserDelegate) ReadWhiteSpace(arg0 *internal.Parser, arg1 context.Context, arg2 chan<- api.Token, arg3 chan<- error) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "ReadWhiteSpace", arg0, arg1, arg2, arg3)
+}
+
+// ReadWhiteSpace indicates an expected call of ReadWhiteSpace.
+func (mr *MockParserDelegateMockRecorder) ReadWhiteSpace(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadWhiteSpace", reflect.TypeOf((*MockParserDelegate)(nil).ReadWhiteSpace), arg0, arg1, arg2, arg3)
 }

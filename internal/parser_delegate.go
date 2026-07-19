@@ -13,11 +13,15 @@ import (
 type ParserDelegate interface {
 	ReadDocument(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error)
 	ReadProlog(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error)
+	ReadComment(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error)
+	ReadWhiteSpace(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error)
 }
 
 type delegate struct {
-	readDocumentFn ProcessingFn
-	readPrologFn   ProcessingFn
+	readDocumentFn   ProcessingFn
+	readPrologFn     ProcessingFn
+	readCommentFn    ProcessingFn
+	readWhiteSpaceFn ProcessingFn
 }
 
 func (d *delegate) ReadDocument(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error) {
@@ -28,9 +32,19 @@ func (d *delegate) ReadProlog(p *Parser, ctx context.Context, tokChan chan<- api
 	d.readPrologFn(p, ctx, tokChan, errorChan)
 }
 
+func (d *delegate) ReadComment(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error) {
+	d.readCommentFn(p, ctx, tokChan, errorChan)
+}
+
+func (d *delegate) ReadWhiteSpace(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorChan chan<- error) {
+	d.readWhiteSpaceFn(p, ctx, tokChan, errorChan)
+}
+
 func createDelegate() ParserDelegate {
 	return &delegate{
-		readDocumentFn: ReadDocument,
-		readPrologFn:   ReadProlog,
+		readDocumentFn:   ReadDocument,
+		readPrologFn:     ReadProlog,
+		readCommentFn:    ReadComment,
+		readWhiteSpaceFn: ReadWhiteSpace,
 	}
 }

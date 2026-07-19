@@ -13,7 +13,7 @@ func ReadProlog(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorC
 	default:
 	}
 
-	bytes, _ := p.rb.Peek(MaxTokenSize)
+	bytes, _ := p.rb.Peek(MaxLexemeSize)
 	if DriedXMLDeclToken == string(bytes) {
 		_, _ = p.rb.Discard(len(DriedXMLDeclToken))
 
@@ -23,6 +23,7 @@ func ReadProlog(p *Parser, ctx context.Context, tokChan chan<- api.Token, errorC
 				Column: p.pos,
 			},
 		}
+		p.pos += len(DriedXMLDeclToken)
 		select {
 		case <-ctx.Done():
 			return
